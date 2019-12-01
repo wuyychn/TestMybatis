@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzu.dao.IUserDao">
+<!--    配置查询所有-->
+    <select id="findAll" resultType="com.lzu.domain.User">
+        select * from user
+    </select>
+
+    <!-- 保存用户-->
+    <insert id="saveUser">
+        insert into user(username,birthday,sex,address) values(#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+<!--    删除用户-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where id=#{userId}
+    </delete>
+
+<!--    模糊查找-->
+    <select id="findLikeUser" parameterType="String" resultType="com.lzu.domain.User">
+        select * from user where username like #{name}
+    </select>
+
+    <!--查询总的用户数-->
+    <select id="findTotal" resultType="int" >
+        select count(id) from user;
+    </select>
+
+    <!--根据QueryVo的条件查询用户-->
+    <select id="findUserByVo" parameterType="com.lzu.domain.QueryVo" resultType="com.lzu.domain.User">
+        select * from user where username like #{user.username}
+    </select>
+
+</mapper>
